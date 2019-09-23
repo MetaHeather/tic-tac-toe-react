@@ -1,32 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { arrayExpression } from '@babel/types';
 
 
-class Square extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            val: null,
-        };
-    }
-    render() {
-      return (
-        <button 
-            className="square" 
-            onClick={() => this.setState({value: 'X'})}
-        >
-            {this.state.value}
+function Square(props) {
+    return(
+        <button className="square" onClick={props.onClick}>
+            {props.value}
         </button>
-      );
-    }
+    );    
   }
   
 
 
   class Board extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+        };
+    }
+    handleClick(i){
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares});
+    }
     renderSquare(i) {
-      return <Square value={i} />;
+        return (
+            <Square 
+                value={this.state.squares[i]} 
+                onClick={() => this.handleClick(i)}
+             />
+        );
     }
     render() {
       const status = 'Next player: X';
