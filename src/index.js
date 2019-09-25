@@ -75,6 +75,7 @@ function Square(props) {
   }
   
   class Game extends React.Component {
+    
     render() {
       return (
         <div className="game">
